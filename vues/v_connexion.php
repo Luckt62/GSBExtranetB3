@@ -37,17 +37,13 @@
 							</form>
 							</br>
 						<a href="index.php?uc=creation&action=demandeCreation">je suis médecin, je souhaite créer un compte</a>
-                                                <br/>
-                                                
-                                        </div>	
-                                     
-                                    
+              <br/>                            
+          </div>	         
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

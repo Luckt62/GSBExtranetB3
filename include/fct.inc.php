@@ -1,4 +1,5 @@
 ﻿<?php
+include_once 'class.pdogsb.inc.php';
 //on insère le fichier qui contient les fonctions
 
 
@@ -94,10 +95,55 @@ function input_data($data){
 	  $numbytes = 3; // Because 6 digits hexadecimal = 3 bytes
 	  $bytes = openssl_random_pseudo_bytes($numbytes); 
           $hex   = bin2hex($bytes);
-	  return $hex;
-        
+	  return $hex;       
     }
     
-    
-    
+	function portabiliter($id) {
+		$pdo = PdoGsb::getPdoGsb();
+        $result = $pdo->donneInfosportabilite($id);
+		$fichier = "./portabilite/".$id.".json";
+		file_put_contents($fichier, json_encode($result));
+    }
+
+	function verifiecode($id, $code) {
+		$pdo = PdoGsb::getPdoGsb();
+		$resultat = $pdo->recupereCode($id);
+		if ($resultat) {
+			if ($code == $resultat['code']) {
+				$dateCreation = new DateTime($resultat['dateCreation']);
+				$temps = new DateTime();
+				$intervalle = $temps->diff($dateCreation);
+				if ($intervalle->i < 1 && $intervalle->h == 0 && $intervalle->d == 0) {
+					return true; 
+				} else {
+					return false; 
+				}
+			}
+		}
+		
+		return false; 
+	}
+	
+	
+function ajouteConnexion($id){
+	$pdo = PdoGsb::getPdoGsb();
+	$_SESSION['Date'] = $pdo->ajouteConnexionInitiale($id);
+}
+
+function ajouteCode($id){
+	$pdo = PdoGsb::getPdoGsb();
+	$code = generateCode();
+	$pdo->AjouterCodeVerif($id, $code);		
+}
+
+function envoyerEmail($destinataire, $sujet, $message) {
+    $headers = 'From: lecnik.valentin@gmail.com' . "\r\n" .
+               'X-Mailer: PHP/' . phpversion();
+
+    if (mail($destinataire, $sujet, $message, $headers)) {
+        echo "Email envoyé avec succès à $destinataire.";
+    } else {
+        echo "L'envoi de l'email a échoué.";
+    }
+}
 ?>

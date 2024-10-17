@@ -50,12 +50,17 @@ else {
       </ul>
       <ul class="nav navbar-nav navbar-right">
 		  <li><a><?php echo $_SESSION['prenom']."  ".$_SESSION['nom']?></a></li>
-		  <li><a>Médecin</a></li>
-       
+		  <li><a>Médecin</a></li> 
+      <li><a>Déconnexion</a></li>
+     </ul>
+     <ul class = "nav navbar-nav">
+      <li class ="active"><a href="index.php?uc=droits&action=portabilite">Droit à la portabilite</a></li>
      </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
+  </div>
 </nav>
+
 
 
 
